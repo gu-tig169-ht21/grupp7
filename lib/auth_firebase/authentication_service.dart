@@ -1,4 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:my_first_app/main.dart';
 
 class AuthenticationService {
   final FirebaseAuth firebaseAuth;
@@ -27,5 +30,12 @@ class AuthenticationService {
     } on FirebaseAuthException catch (e) {
       return e.message;
     }
+  }
+
+  Future<void> signOut() async {
+    await firebaseAuth.signOut();
+    runApp(new MaterialApp(
+      home: new AuthenticationWrapper(),
+    ));
   }
 }
