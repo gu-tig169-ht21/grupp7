@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_first_app/view/signup_page.dart';
 import 'package:provider/provider.dart';
 import 'authentication_service.dart';
 
@@ -32,7 +33,14 @@ class SignIn extends StatelessWidget {
                   );
             },
             child: Text('Sign in'),
-          )
+          ),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => SignUp()));
+            },
+            child: Text('Sign Up'),
+          ),
         ],
       ),
     );
