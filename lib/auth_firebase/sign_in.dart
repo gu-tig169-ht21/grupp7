@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_first_app/view/scorecard.dart';
 import 'package:my_first_app/view/signup_page.dart';
 import 'package:provider/provider.dart';
 import 'authentication_service.dart';
@@ -11,38 +12,36 @@ class SignIn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          TextField(
-            controller: emailController,
-            decoration: InputDecoration(
-              labelText: 'Email',
-            ),
+      body: Column(children: [
+        TextField(
+          controller: emailController,
+          decoration: InputDecoration(
+            labelText: 'Email',
           ),
-          TextField(
-            controller: passwordController,
-            decoration: InputDecoration(
-              labelText: 'Password',
-            ),
+        ),
+        TextField(
+          controller: passwordController,
+          decoration: InputDecoration(
+            labelText: 'Password',
           ),
-          ElevatedButton(
-            onPressed: () {
-              context.read<AuthenticationService>().signIn(
-                    email: emailController.text.trim(),
-                    password: passwordController.text.trim(),
-                  );
-            },
-            child: Text('Sign in'),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => SignUp()));
-            },
-            child: Text('Sign Up'),
-          ),
-        ],
-      ),
+        ),
+        ElevatedButton(
+          onPressed: () {
+            context.read<AuthenticationService>().signIn(
+                  email: emailController.text.trim(),
+                  password: passwordController.text.trim(),
+                );
+          },
+          child: Text('Sign in'),
+        ),
+        ElevatedButton(
+          onPressed: () {
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => SignUp()));
+          },
+          child: Text('Sign Up'),
+        ),
+      ]),
     );
   }
 }

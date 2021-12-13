@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_first_app/auth_firebase/authentication_service.dart';
 import 'package:my_first_app/auth_firebase/sign_in.dart';
+import 'package:my_first_app/view/scorecard.dart';
 import 'package:provider/src/provider.dart';
 
 class HomePage extends StatelessWidget {
@@ -13,7 +14,17 @@ class HomePage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('Home'),
+            Text(
+              'DiscMANIA',
+              style: TextStyle(fontSize: 20, color: Colors.black),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => HomePageWidget()));
+              },
+              child: Text('Skapa scorekort'),
+            ),
             ElevatedButton(
               onPressed: () {
                 context.read<AuthenticationService>().signOut();
