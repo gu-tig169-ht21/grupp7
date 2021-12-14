@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:my_first_app/view/scorecard.dart';
-import 'package:my_first_app/view/signup_page.dart';
 import 'package:provider/provider.dart';
 import 'authentication_service.dart';
 
@@ -36,8 +35,10 @@ class SignIn extends StatelessWidget {
         ),
         ElevatedButton(
           onPressed: () {
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) => SignUp()));
+            context.read<AuthenticationService>().signUp(
+                  email: emailController.text.trim(),
+                  password: passwordController.text.trim(),
+                );
           },
           child: Text('Sign Up'),
         ),
