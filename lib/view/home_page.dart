@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:my_first_app/auth_firebase/authentication_service.dart';
 import 'package:my_first_app/auth_firebase/sign_in.dart';
 import 'package:my_first_app/view/scorecard.dart';
+import 'package:my_first_app/view/scorecard_view.dart';
 import 'package:provider/src/provider.dart';
+
+import 'scorecard_view.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -21,7 +24,7 @@ class HomePage extends StatelessWidget {
             ElevatedButton(
               onPressed: () {
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => HomePageWidget()));
+                    MaterialPageRoute(builder: (context) => ScoreCard()));
               },
               child: Text('Skapa scorekort'),
             ),
