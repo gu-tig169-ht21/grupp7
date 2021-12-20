@@ -37,7 +37,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                 onPressed: () {
                   print('Button pressed ...');
                 },
-                child: null,
+                child: null
               ),
             ),
           ],

@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'auth_firebase/authentication_service.dart';
+import 'providers/player_provider.dart';
 import 'view/home_page.dart';
 import 'auth_firebase/sign_in.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -19,7 +20,9 @@ class MyApp extends StatelessWidget {
       providers: [
         Provider<AuthenticationService>(
           create: (_) => AuthenticationService(FirebaseAuth.instance),
-        ), // Provider
+        ),
+        ChangeNotifierProvider.value(value: PlayerProvider()),
+        // Provider
         StreamProvider(
           create: (context) =>
               context.read<AuthenticationService>().authStateChanges,
