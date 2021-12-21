@@ -1,3 +1,20 @@
+/*
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+class FirestoreService {
+   Firestore _db = Firestore.instance;
+
+
+  Future<void> saveScore(ScorecardTest scoreCardTest) {
+    return _db.collection('ScorecardTest').document(MdHOFjWOImGH9adXSyyY.player).setData(MdHOFjWOImGH9adXSyyY.createMap());
+)
+  }
+
+}
+
+
+*/
+
 
 /*
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -15,20 +32,4 @@ class FirebaseSevice {
     db.doc("asdf").update(ourData).then((value) => print("success"));
   }
 }
-*/
-/*
-import 'package:cloud_firestore/cloud_firestore.dart';
-
-class FirestoreService {
-   Firestore _db = Firestore.instance;
-
-
-  Future<void> saveScore(ScorecardTest scoreCardTest) {
-    return _db.collection('ScorecardTest').document(MdHOFjWOImGH9adXSyyY.player).setData(MdHOFjWOImGH9adXSyyY.createMap());
-)
-  }
-
-}
-
-
 */

@@ -105,13 +105,14 @@ class MyCustomFormState extends State<MyCustomForm> {
                 return null;
               }),
           TextFormField(
+            keyboardType: TextInputType.number,
             decoration: const InputDecoration(
               icon: Icon(Icons.person),
               hintText: 'score loser',
               labelText: 'score loooser',
             ),
             onChanged: (value) {
-              score = int.parse(value);
+              if (value.isNotEmpty) score = int.parse(value);
             },
             validator: (value) {
               if (value == null || value.isEmpty) {
@@ -132,7 +133,14 @@ class MyCustomFormState extends State<MyCustomForm> {
                   );
 
                   scorecardtest
-                      .add({'name': name, 'score': score})
+                      .add({
+                        'players': [
+                          {
+                            'name': name,
+                            'score': [score]
+                          }
+                        ]
+                      })
                       .then((value) => print('User Added'))
                       .catchError((error) => print('failed $error'));
                 }
