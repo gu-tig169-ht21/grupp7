@@ -19,12 +19,6 @@ class _HomePageWidgetState extends State<HomePageWidget> {
       body: SafeArea(
         child: Stack(
           children: [
-            Image.network(
-              'https://picsum.photos/seed/888/600',
-              width: 375,
-              height: 812,
-              fit: BoxFit.cover,
-            ),
             Align(
               alignment: AlignmentDirectional(-0.01, -0.56),
               child: Text(
@@ -34,11 +28,10 @@ class _HomePageWidgetState extends State<HomePageWidget> {
             Align(
               alignment: AlignmentDirectional(0, 0),
               child: ElevatedButton(
-                onPressed: () {
-                  print('Button pressed ...');
-                },
-                child: null
-              ),
+                  onPressed: () {
+                    print('Button pressed ...');
+                  },
+                  child: null),
             ),
           ],
         ),

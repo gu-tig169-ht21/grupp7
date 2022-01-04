@@ -4,7 +4,8 @@ import 'package:my_first_app/auth_firebase/sign_in.dart';
 import 'package:my_first_app/view/scorecard.dart';
 import 'package:my_first_app/view/scorecard_view.dart';
 import 'package:provider/src/provider.dart';
-
+import './ny_scorecard.dart';
+import 'holeone.dart';
 import 'scorecard_view.dart';
 
 class HomePage extends StatelessWidget {
@@ -33,6 +34,22 @@ class HomePage extends StatelessWidget {
                 context.read<AuthenticationService>().signOut();
               },
               child: Text("Sign out"),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => NewScorecardView()));
+              },
+              child: Text('testsida'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => HoleIndex()));
+              },
+              child: Text('hole1'),
             ),
           ],
         ),

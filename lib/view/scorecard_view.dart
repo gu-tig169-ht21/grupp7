@@ -156,42 +156,4 @@ class MyCustomFormState extends State<MyCustomForm> {
 
 
 
-      /*
-              return ListView(
-                children: snapshot.data!.docs.map((document) {
-                  return Center(
-                    child: ListTile(
-                        title: Text(
-                          "ID: " + document['ID'].toString(),
-                          style: const TextStyle(
-                              color: Colors.blueGrey,
-                              fontWeight: FontWeight.w900,
-                              fontSize: 15),
-                        ),
-                        subtitle: Text("Namn: " + document['namn'],
-                            style: const TextStyle(
-                                color: Colors.blueGrey,
-                                fontWeight: FontWeight.w900,
-                                fontSize: 15))),
-                  );
-                }).toList(),
-              );
-            }),
-      ),
-    );
-  }
-}
-*/
-
-/* ElevatedButton(
-                    // child: Icon(Icons.add),
-                    onPressed: () {
-                      FirebaseFirestore.instance
-                          .collection('scorecard1')
-                          .add({'ID': '5', 'namn': 'jocke'});
-                    },
-                    child: Text('Sign Up'),
-                  ),
-
-                  */
-    
+   
