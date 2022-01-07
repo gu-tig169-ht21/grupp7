@@ -1,18 +1,19 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:my_first_app/providers/player.dart';
+import './player.dart';
 
-class PlayerProvider with ChangeNotifier {
-  late String _name;
-  late int _score;
-  late int _totalScore;
+class AddPlayerNotifier extends ChangeNotifier {
+  List<Player> playerList = [];
 
-  //getters
+  addPlayer(String playerName) async {
+    Player player = Player(playerName: playerName);
+    playerList.add(player);
 
-  String get getName => _name;
-  int get getScore => _score;
-  int get gettotalScore => _totalScore;
+    notifyListeners();
+  }
 
-  void editScore(int val) {
-    _score = val;
+  void updatePlayerScoreCount(int index, int count) {
+    playerList[index].scoreCount = count;
     notifyListeners();
   }
 }

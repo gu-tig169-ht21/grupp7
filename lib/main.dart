@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
         Provider<AuthenticationService>(
           create: (_) => AuthenticationService(FirebaseAuth.instance),
         ),
-        ChangeNotifierProvider.value(value: PlayerProvider()),
+        ChangeNotifierProvider.value(value: AddPlayerNotifier()),
         // Provider
         StreamProvider(
           create: (context) =>

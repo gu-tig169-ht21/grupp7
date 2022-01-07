@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_first_app/auth_firebase/authentication_service.dart';
-import 'package:my_first_app/auth_firebase/sign_in.dart';
-import 'package:my_first_app/view/scorecard.dart';
-import 'package:my_first_app/view/scorecard_view.dart';
-import 'package:provider/src/provider.dart';
-import './ny_scorecard.dart';
-import 'holeone.dart';
+import 'package:my_first_app/view/result_view.dart';
+import 'package:provider/provider.dart';
 import 'scorecard_view.dart';
 
 class HomePage extends StatelessWidget {
@@ -25,31 +21,22 @@ class HomePage extends StatelessWidget {
             ElevatedButton(
               onPressed: () {
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => ScoreCard()));
+                    MaterialPageRoute(builder: (context) => HomeScreen()));
               },
               child: Text('Skapa scorekort'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => ScoreCard()));
+              },
+              child: Text('See score'),
             ),
             ElevatedButton(
               onPressed: () {
                 context.read<AuthenticationService>().signOut();
               },
               child: Text("Sign out"),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => NewScorecardView()));
-              },
-              child: Text('testsida'),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => HoleIndex()));
-              },
-              child: Text('hole1'),
             ),
           ],
         ),

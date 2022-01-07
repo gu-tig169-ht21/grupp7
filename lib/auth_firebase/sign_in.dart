@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:my_first_app/view/scorecard.dart';
 import 'package:provider/provider.dart';
 import 'authentication_service.dart';
 
