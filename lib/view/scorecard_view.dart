@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/player.dart';
@@ -60,7 +61,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget PlayerItem(
       Player player, AddPlayerNotifier addPlayerNotifier, int index) {
     return Padding(
-      padding: EdgeInsets.all(5.0),
+      padding: const EdgeInsets.all(5.0),
       child: Card(
         child: ListTile(
           title: Text(
@@ -91,11 +92,34 @@ class _HomeScreenState extends State<HomeScreen> {
                       index,
                       player.scoreCount + 1,
                     );
-                  })
+                  }),
+              TextButton(
+                  child: Text('submit'),
+                  onPressed: () {
+                    uploadScore(player, addPlayerNotifier, index);
+                  }),
             ],
           ),
         ),
       ),
     );
+  }
+
+  Widget? uploadScore(
+      Player player, AddPlayerNotifier addPlayerNotifier, int index) {
+    CollectionReference scorecardtest =
+        FirebaseFirestore.instance.collection('ScorecardTest');
+
+    scorecardtest
+        .add({
+          'players': [
+            {
+              'name': player.playerName,
+              'score': [player.scoreCount],
+            }
+          ]
+        })
+        .then((value) => print('User Added'))
+        .catchError((error) => print('failed $error'));
   }
 }

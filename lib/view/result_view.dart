@@ -97,7 +97,7 @@ class MyCustomFormState extends State<MyCustomForm> {
               },
               validator: (value) {
                 if (value == null || value.isEmpty) {
-                  return 'name ffs';
+                  return 'name';
                 }
                 return null;
               }),
@@ -105,15 +105,15 @@ class MyCustomFormState extends State<MyCustomForm> {
             keyboardType: TextInputType.number,
             decoration: const InputDecoration(
               icon: Icon(Icons.person),
-              hintText: 'score loser',
-              labelText: 'score loooser',
+              hintText: 'score',
+              labelText: 'score',
             ),
             onChanged: (value) {
               if (value.isNotEmpty) score = int.parse(value);
             },
             validator: (value) {
               if (value == null || value.isEmpty) {
-                return 'enter score pls';
+                return 'enter score please';
               }
               return null;
             },
