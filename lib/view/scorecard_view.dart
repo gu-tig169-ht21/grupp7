@@ -1,159 +1,101 @@
-// import 'dart:html';
-// import 'package:http/http.dart';
-// import 'dart:convert';
-// import 'dart:io';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:provider/provider.dart';
+import '../providers/player.dart';
+import '../providers/player_provider.dart';
+import 'addplayerscreen.dart';
 
-class ScoreCard extends StatefulWidget {
-  const ScoreCard({Key? key}) : super(key: key);
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({Key? key}) : super(key: key);
 
   @override
-  _ScoreCardState createState() => _ScoreCardState();
+  _HomeScreenState createState() => _HomeScreenState();
 }
 
-final TextEditingController playerController = TextEditingController();
-
-class _ScoreCardState extends State<ScoreCard> {
-  final Stream<QuerySnapshot> scorecardTest =
-      FirebaseFirestore.instance.collection('ScorecardTest').snapshots();
+class _HomeScreenState extends State<HomeScreen> {
+  final String title = 'Add player';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(10.0),
+      appBar: AppBar(
+        title: Text(title),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.add),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  fullscreenDialog: true,
+                  builder: (context) {
+                    return AddPlayerScreen();
+                  },
+                ),
+              );
+            },
+          )
+        ],
+      ),
+      body: Container(
+        padding: const EdgeInsets.all(2.0),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('players'),
-            Container(
-              height: 150,
-              padding: const EdgeInsets.symmetric(vertical: 20),
-              child: StreamBuilder<QuerySnapshot>(
-                stream: scorecardTest,
-                builder: (
-                  BuildContext context,
-                  AsyncSnapshot<QuerySnapshot> snapshot,
-                ) {
-                  if (snapshot.hasError) {
-                    return Text('this isnt workin');
-                  }
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Text('Loading');
-                  }
-                  final data = snapshot.requireData;
-
-                  return ListView.builder(
-                    itemCount: data.size,
+            Consumer<AddPlayerNotifier>(
+              builder: (context, addPlayerNotifier, child) {
+                return ListView.builder(
+                    scrollDirection: Axis.vertical,
+                    shrinkWrap: true,
+                    itemCount: addPlayerNotifier.playerList.length,
                     itemBuilder: (context, index) {
-                      return Text('${data.docs[index]['players']}');
-                    },
-                  );
-                },
-              ),
+                      return PlayerItem(addPlayerNotifier.playerList[index],
+                          addPlayerNotifier, index);
+                    });
+              },
             ),
-            Text(
-              'Wtire data to clod',
-              style: TextStyle(fontSize: 20),
-            ),
-            MyCustomForm()
           ],
         ),
       ),
     );
   }
-}
 
-class MyCustomForm extends StatefulWidget {
-  @override
-  MyCustomFormState createState() {
-    return MyCustomFormState();
-  }
-}
-
-class MyCustomFormState extends State<MyCustomForm> {
-  final _formKey = GlobalKey<FormState>();
-
-  var name = '';
-  var score = 0;
-
-  @override
-  Widget build(BuildContext context) {
-    CollectionReference scorecardtest =
-        FirebaseFirestore.instance.collection('ScorecardTest');
-    return Form(
-      key: _formKey,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          TextFormField(
-              decoration: const InputDecoration(
-                icon: Icon(Icons.person),
-                hintText: 'name pls',
-                labelText: 'name plpx',
-              ),
-              onChanged: (value) {
-                name = value;
-              },
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'name ffs';
-                }
-                return null;
-              }),
-          TextFormField(
-            keyboardType: TextInputType.number,
-            decoration: const InputDecoration(
-              icon: Icon(Icons.person),
-              hintText: 'score loser',
-              labelText: 'score loooser',
+  Widget PlayerItem(
+      Player player, AddPlayerNotifier addPlayerNotifier, int index) {
+    return Padding(
+      padding: EdgeInsets.all(5.0),
+      child: Card(
+        child: ListTile(
+          title: Text(
+            player.playerName,
+            style: const TextStyle(
+              fontSize: 20.0,
+              color: Colors.black,
             ),
-            onChanged: (value) {
-              if (value.isNotEmpty) score = int.parse(value);
-            },
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'enter score pls';
-              }
-              return null;
-            },
           ),
-          SizedBox(height: 15),
-          Center(
-            child: ElevatedButton(
-              onPressed: () {
-                if (_formKey.currentState!.validate()) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text('uploading score to firebase'),
-                    ),
-                  );
-
-                  scorecardtest
-                      .add({
-                        'players': [
-                          {
-                            'name': name,
-                            'score': [score]
-                          }
-                        ]
+          trailing: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              player.scoreCount != 0
+                  ? IconButton(
+                      icon: const Icon(Icons.remove),
+                      onPressed: () {
+                        addPlayerNotifier.updatePlayerScoreCount(
+                          index,
+                          player.scoreCount - 1,
+                        );
                       })
-                      .then((value) => print('User Added'))
-                      .catchError((error) => print('failed $error'));
-                }
-              },
-              child: Text('Submit'),
-            ),
+                  : Container(),
+              Text(player.scoreCount.toString()),
+              IconButton(
+                  icon: const Icon(Icons.add),
+                  onPressed: () {
+                    addPlayerNotifier.updatePlayerScoreCount(
+                      index,
+                      player.scoreCount + 1,
+                    );
+                  })
+            ],
           ),
-        ],
+        ),
       ),
     );
   }
 }
-
-
-
-   
