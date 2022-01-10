@@ -8,7 +8,6 @@ class AddPlayerScreen extends StatelessWidget {
   final String title = 'Add Player';
 
   final TextEditingController _playerNameController = TextEditingController();
-  final TextEditingController _playerScoreController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -17,21 +16,21 @@ class AddPlayerScreen extends StatelessWidget {
         title: Text(title),
       ),
       body: Container(
-        padding: EdgeInsets.all(25.0),
+        padding: const EdgeInsets.all(25.0),
         child: Column(
           children: <Widget>[
             TextField(
               controller: _playerNameController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 contentPadding: EdgeInsets.all(10.0),
                 hintText: 'player name',
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 30.0,
             ),
             ElevatedButton(
-              child: Text('add player'),
+              child: const Text('add player'),
               onPressed: () async {
                 if (_playerNameController.text.isEmpty) {
                   return;

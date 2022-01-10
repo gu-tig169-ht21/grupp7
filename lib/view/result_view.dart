@@ -4,6 +4,7 @@
 // import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:my_first_app/view/home_page.dart';
 
 class ScoreCard extends StatefulWidget {
   const ScoreCard({Key? key}) : super(key: key);
@@ -20,39 +21,63 @@ class _ScoreCardState extends State<ScoreCard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Highscores'),
+        centerTitle: true,
+      ),
       body: Padding(
         padding: const EdgeInsets.all(10.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('players'),
             Container(
-              height: 150,
+              height: 400,
               padding: const EdgeInsets.symmetric(vertical: 20),
               child: StreamBuilder<QuerySnapshot>(
-                stream: scorecardTest,
-                builder: (
-                  BuildContext context,
-                  AsyncSnapshot<QuerySnapshot> snapshot,
-                ) {
-                  if (snapshot.hasError) {
-                    return Text('this isnt workin');
-                  }
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Text('Loading');
-                  }
-                  final data = snapshot.requireData;
+                  stream: scorecardTest,
+                  builder: (
+                    BuildContext context,
+                    AsyncSnapshot<QuerySnapshot> snapshot,
+                  ) {
+                    if (snapshot.hasError) {
+                      return const Text('this isnt workin');
+                    }
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Text('Loading');
+                    }
+                    final data = snapshot.requireData;
 
-                  return ListView.builder(
-                    itemCount: data.size,
-                    itemBuilder: (context, index) {
-                      return Text('${data.docs[index]['players']}');
-                    },
-                  );
-                },
-              ),
+                    return ListView(
+                      shrinkWrap: true,
+                      children: snapshot.data!.docs.map((doc) {
+                        return Card(
+                          child: ListTile(
+                            title: Text((doc.data() as Map)['name'].toString()),
+                            subtitle:
+                                Text((doc.data()! as Map)['score'].toString()),
+                          ),
+                        );
+                      }).toList(),
+
+                      /* return ListView.builder(
+                        itemCount: data.size,
+                        itemBuilder: (context, index) {
+                          var players = data.docs[index]['players'];
+                          var name = players. name;
+                          var score = players['score'][0];
+                          return Text('$name - $score');
+                        });
+*/
+                      /* return ListView.builder(
+                      itemCount: data.size,
+                      itemBuilder: (context, index) {
+                        return Text('${data.docs[index]['name']}');
+                      },
+                    ); */
+                    );
+                  }),
             ),
-            Text(
+            const Text(
               'Enter score',
               style: TextStyle(fontSize: 20),
             ),
@@ -124,25 +149,18 @@ class MyCustomFormState extends State<MyCustomForm> {
               onPressed: () {
                 if (_formKey.currentState!.validate()) {
                   ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
+                    const SnackBar(
                       content: Text('uploading score to firebase'),
                     ),
                   );
 
                   scorecardtest
-                      .add({
-                        'players': [
-                          {
-                            'name': name,
-                            'score': [score]
-                          }
-                        ]
-                      })
+                      .add({'name': name, 'score': score})
                       .then((value) => print('User Added'))
                       .catchError((error) => print('failed $error'));
                 }
               },
-              child: Text('Submit'),
+              child: const Text('Submit'),
             ),
           ),
         ],

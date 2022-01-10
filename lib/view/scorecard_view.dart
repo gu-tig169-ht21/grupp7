@@ -112,12 +112,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
     scorecardtest
         .add({
-          'players': [
-            {
-              'name': player.playerName,
-              'score': [player.scoreCount],
-            }
-          ]
+          'name': player.playerName,
+          'score': player.scoreCount,
         })
         .then((value) => print('User Added'))
         .catchError((error) => print('failed $error'));
