@@ -81,53 +81,55 @@ class SignIn extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ))));
 
+    final signupButton = Material(
+        elevation: 5,
+        borderRadius: BorderRadius.circular(30),
+        color: Colors.redAccent,
+        child: MaterialButton(
+            padding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
+            minWidth: MediaQuery.of(context).size.width,
+            onPressed: () {
+              context.read<AuthenticationService>().signUp(
+                    email: emailController.text.trim(),
+                    password: passwordController.text.trim(),
+                  );
+            },
+            child: const Text('Sign Up',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 20,
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ))));
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: Center(
         child: SingleChildScrollView(
           child: Container(
-            color: Colors.white,
-            padding: const EdgeInsets.all(36.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                emailField,
-                SizedBox(height: 45),
-                passwordField,
-                SizedBox(height: 45),
-                loginButton,
-                SizedBox(height: 45),
-                Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      const Text('Dont have an account? '),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const HomePage()));
-                        },
-                        child: const Text(
-                          "SignUp",
-                          style: TextStyle(
-                              color: Colors.redAccent,
-                              fontWeight: FontWeight.w600,
-                              fontSize: 15),
-                        ),
-                      ),
-                    ])
-              ],
-            ),
-          ),
+              color: Colors.white,
+              padding: const EdgeInsets.all(36.0),
+              child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    emailField,
+                    SizedBox(height: 45),
+                    passwordField,
+                    SizedBox(height: 45),
+                    loginButton,
+                    SizedBox(height: 45),
+                    signupButton,
+                    SizedBox(height: 45),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                    ),
+                  ])),
         ),
       ),
     );
   }
-
-
-  }
+}
 
 
 
@@ -160,7 +162,7 @@ class SignIn extends StatelessWidget {
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10),
               )),
-        ),
+        ), 
         ElevatedButton(
           onPressed: () {
             context.read<AuthenticationService>().signIn(

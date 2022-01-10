@@ -1,23 +1,22 @@
-// import 'dart:html';
-// import 'package:http/http.dart';
-// import 'dart:convert';
-// import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:my_first_app/view/home_page.dart';
 
-class ScoreCard extends StatefulWidget {
-  const ScoreCard({Key? key}) : super(key: key);
+class ScoreCardTwo extends StatefulWidget {
+  const ScoreCardTwo({Key? key}) : super(key: key);
 
   @override
-  _ScoreCardState createState() => _ScoreCardState();
+  _ScoreCardTwoState createState() => _ScoreCardTwoState();
 }
 
 final TextEditingController playerController = TextEditingController();
 
-class _ScoreCardState extends State<ScoreCard> {
-  final Stream<QuerySnapshot> scorecardTest =
-      FirebaseFirestore.instance.collection('ScorecardTest').snapshots();
+class _ScoreCardTwoState extends State<ScoreCardTwo> {
+  final Stream<QuerySnapshot> scorecardTest = FirebaseFirestore.instance
+      .collection('ScorecardTest')
+      .orderBy('score')
+      .snapshots();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,10 +27,10 @@ class _ScoreCardState extends State<ScoreCard> {
       body: Padding(
         padding: const EdgeInsets.all(10.0),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Container(
-              height: 400,
+              height: 550,
               padding: const EdgeInsets.symmetric(vertical: 20),
               child: StreamBuilder<QuerySnapshot>(
                   stream: scorecardTest,
@@ -58,34 +57,33 @@ class _ScoreCardState extends State<ScoreCard> {
                           ),
                         );
                       }).toList(),
-
-                      /* return ListView.builder(
-                        itemCount: data.size,
-                        itemBuilder: (context, index) {
-                          var players = data.docs[index]['players'];
-                          var name = players. name;
-                          var score = players['score'][0];
-                          return Text('$name - $score');
-                        });
-*/
-                      /* return ListView.builder(
-                      itemCount: data.size,
-                      itemBuilder: (context, index) {
-                        return Text('${data.docs[index]['name']}');
-                      },
-                    ); */
                     );
                   }),
             ),
-            const Text(
-              'Enter score',
-              style: TextStyle(fontSize: 20),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => newScoreView()));
+              },
+              child: const Text('Add score'),
             ),
-            MyCustomForm()
           ],
         ),
       ),
     );
+  }
+}
+
+class newScoreView extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        body: Column(
+          children: [MyCustomForm()],
+        ),
+        appBar: AppBar(
+          title: Text('New Score'),
+        ));
   }
 }
 
@@ -129,7 +127,7 @@ class MyCustomFormState extends State<MyCustomForm> {
           TextFormField(
             keyboardType: TextInputType.number,
             decoration: const InputDecoration(
-              icon: Icon(Icons.numbers),
+              icon: Icon(Icons.person),
               hintText: 'score',
               labelText: 'score',
             ),
@@ -159,6 +157,7 @@ class MyCustomFormState extends State<MyCustomForm> {
                       .then((value) => print('User Added'))
                       .catchError((error) => print('failed $error'));
                 }
+                Navigator.pop(context);
               },
               child: const Text('Submit'),
             ),
