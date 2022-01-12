@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'auth_firebase/authentication_service.dart';
+import 'providers/player_provider.dart';
 import 'view/home_page.dart';
 import 'auth_firebase/sign_in.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -19,21 +20,22 @@ class MyApp extends StatelessWidget {
       providers: [
         Provider<AuthenticationService>(
           create: (_) => AuthenticationService(FirebaseAuth.instance),
-        ), // Provider
+        ),
+        ChangeNotifierProvider.value(value: AddPlayerNotifier()),
         StreamProvider(
           create: (context) =>
               context.read<AuthenticationService>().authStateChanges,
           initialData: null,
-        ), // Streamprovider
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'Flutter Demo',
+        title: 'discMania',
         theme: ThemeData(
-          primarySwatch: Colors.blue,
+          primarySwatch: Colors.red,
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
-        home: AuthenticationWrapper(),
+        home: const AuthenticationWrapper(),
       ),
     );
   }
@@ -47,7 +49,7 @@ class AuthenticationWrapper extends StatelessWidget {
     final firebaseUser = context.watch<User?>();
 
     if (firebaseUser != null) {
-      return HomePage();
+      return const HomePage();
     }
     return SignIn();
   }

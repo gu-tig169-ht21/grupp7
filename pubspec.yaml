@@ -39,10 +39,13 @@ dependencies:
   provider: ^6.0.1
   google_fonts: ^2.1.0
   cloud_firestore: ^3.1.4
+  http: ^0.13.4
+  fluttertoast: ^8.0.8
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
@@ -57,16 +60,9 @@ dev_dependencies:
 # The following section is specific to Flutter.
 flutter:
 
-  # The following line ensures that the Material Icons font is
-  # included with your application, so that you can use the icons in
-  # the material Icons class.
+  
   uses-material-design: true
-  assets:
-    - assets/images/
-    - assets/videos/
-    - assets/audios/
-    - assets/lottie_animations/
-    - assets/rive_animations/
+
 
   # To add assets to your application, add an assets section, like this:
   # assets:

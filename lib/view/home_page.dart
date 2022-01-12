@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:my_first_app/auth_firebase/authentication_service.dart';
-import 'package:my_first_app/auth_firebase/sign_in.dart';
-import 'package:my_first_app/view/scorecard.dart';
-import 'package:my_first_app/view/scorecard_view.dart';
-import 'package:provider/src/provider.dart';
-
+import 'package:provider/provider.dart';
 import 'scorecard_view.dart';
+import './result_view.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -13,26 +10,65 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('DiscMANIA'),
+        backgroundColor: Colors.redAccent,
+        centerTitle: true,
+      ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
-              'DiscMANIA',
-              style: TextStyle(fontSize: 20, color: Colors.black),
+            SizedBox(
+              width: 200,
+              height: 40,
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const ScoreCard()));
+                },
+                style: ButtonStyle(
+                    backgroundColor:
+                        MaterialStateProperty.all<Color>(Colors.redAccent)),
+                child: const Text('New game'),
+              ),
             ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => ScoreCard()));
-              },
-              child: Text('Skapa scorekort'),
+            const SizedBox(
+              height: 20,
             ),
-            ElevatedButton(
-              onPressed: () {
-                context.read<AuthenticationService>().signOut();
-              },
-              child: Text("Sign out"),
+            SizedBox(
+              width: 200,
+              height: 40,
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const ResultView()));
+                },
+                style: ButtonStyle(
+                    backgroundColor:
+                        MaterialStateProperty.all<Color>(Colors.redAccent)),
+                child: const Text('Results'),
+              ),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            SizedBox(
+              width: 200,
+              height: 40,
+              child: ElevatedButton(
+                onPressed: () {
+                  context.read<AuthenticationService>().signOut();
+                },
+                style: ButtonStyle(
+                    backgroundColor:
+                        MaterialStateProperty.all<Color>(Colors.redAccent)),
+                child: const Text("Sign out"),
+              ),
             ),
           ],
         ),
