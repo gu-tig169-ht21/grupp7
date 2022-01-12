@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:my_first_app/auth_firebase/authentication_service.dart';
-import 'package:my_first_app/view/result_view.dart';
-import 'package:my_first_app/view/result_view_two.dart';
 import 'package:provider/provider.dart';
 import 'scorecard_view.dart';
+import './result_view.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -12,7 +11,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('DiscMANIA'),
+        title: const Text('DiscMANIA'),
         backgroundColor: Colors.redAccent,
         centerTitle: true,
       ),
@@ -25,16 +24,18 @@ class HomePage extends StatelessWidget {
               height: 40,
               child: ElevatedButton(
                 onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => HomeScreen()));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const ScoreCard()));
                 },
                 style: ButtonStyle(
                     backgroundColor:
                         MaterialStateProperty.all<Color>(Colors.redAccent)),
-                child: Text('Skapa scorekort'),
+                child: const Text('New game'),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             SizedBox(
@@ -42,16 +43,18 @@ class HomePage extends StatelessWidget {
               height: 40,
               child: ElevatedButton(
                 onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => ScoreCard()));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const ResultView()));
                 },
                 style: ButtonStyle(
                     backgroundColor:
                         MaterialStateProperty.all<Color>(Colors.redAccent)),
-                child: Text('See score'),
+                child: const Text('Results'),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             SizedBox(
@@ -64,24 +67,7 @@ class HomePage extends StatelessWidget {
                 style: ButtonStyle(
                     backgroundColor:
                         MaterialStateProperty.all<Color>(Colors.redAccent)),
-                child: Text("Sign out"),
-              ),
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            SizedBox(
-              width: 200,
-              height: 40,
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => ScoreCardTwo()));
-                },
-                style: ButtonStyle(
-                    backgroundColor:
-                        MaterialStateProperty.all<Color>(Colors.redAccent)),
-                child: Text('ScoreCard 2'),
+                child: const Text("Sign out"),
               ),
             ),
           ],

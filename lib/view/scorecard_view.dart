@@ -5,23 +5,24 @@ import '../providers/player.dart';
 import '../providers/player_provider.dart';
 import 'addplayerscreen.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+class ScoreCard extends StatefulWidget {
+  const ScoreCard({Key? key}) : super(key: key);
 
   @override
-  _HomeScreenState createState() => _HomeScreenState();
+  _ScoreCardState createState() => _ScoreCardState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
-  final String title = 'Add player';
+class _ScoreCardState extends State<ScoreCard> {
+  final String title = 'Scorecard';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(title),
+        centerTitle: true,
         actions: <Widget>[
           IconButton(
-            icon: Icon(Icons.add),
+            icon: const Icon(Icons.add),
             onPressed: () {
               Navigator.push(
                 context,
@@ -94,7 +95,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     );
                   }),
               TextButton(
-                  child: Text('submit'),
+                  child: const Text('submit'),
                   onPressed: () {
                     uploadScore(player, addPlayerNotifier, index);
                   }),

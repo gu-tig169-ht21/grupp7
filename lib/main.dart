@@ -22,18 +22,17 @@ class MyApp extends StatelessWidget {
           create: (_) => AuthenticationService(FirebaseAuth.instance),
         ),
         ChangeNotifierProvider.value(value: AddPlayerNotifier()),
-        // Provider
         StreamProvider(
           create: (context) =>
               context.read<AuthenticationService>().authStateChanges,
           initialData: null,
-        ), // Streamprovider
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'Flutter Demo',
+        title: 'discMania',
         theme: ThemeData(
-          primarySwatch: Colors.blue,
+          primarySwatch: Colors.red,
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
         home: const AuthenticationWrapper(),

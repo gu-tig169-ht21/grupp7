@@ -1,23 +1,21 @@
-// import 'dart:html';
-// import 'package:http/http.dart';
-// import 'dart:convert';
-// import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:my_first_app/view/home_page.dart';
 
-class ScoreCard extends StatefulWidget {
-  const ScoreCard({Key? key}) : super(key: key);
+class ResultView extends StatefulWidget {
+  const ResultView({Key? key}) : super(key: key);
 
   @override
-  _ScoreCardState createState() => _ScoreCardState();
+  _ResultViewState createState() => _ResultViewState();
 }
 
 final TextEditingController playerController = TextEditingController();
 
-class _ScoreCardState extends State<ScoreCard> {
-  final Stream<QuerySnapshot> scorecardTest =
-      FirebaseFirestore.instance.collection('ScorecardTest').snapshots();
+class _ResultViewState extends State<ResultView> {
+  final Stream<QuerySnapshot> scorecardTest = FirebaseFirestore.instance
+      .collection('ScorecardTest')
+      .orderBy('score')
+      .snapshots();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,10 +26,10 @@ class _ScoreCardState extends State<ScoreCard> {
       body: Padding(
         padding: const EdgeInsets.all(10.0),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Container(
-              height: 400,
+              height: 550,
               padding: const EdgeInsets.symmetric(vertical: 20),
               child: StreamBuilder<QuerySnapshot>(
                   stream: scorecardTest,
@@ -40,12 +38,11 @@ class _ScoreCardState extends State<ScoreCard> {
                     AsyncSnapshot<QuerySnapshot> snapshot,
                   ) {
                     if (snapshot.hasError) {
-                      return const Text('this isnt workin');
+                      return const Text('this is not working');
                     }
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return const Text('Loading');
                     }
-                    final data = snapshot.requireData;
 
                     return ListView(
                       shrinkWrap: true,
@@ -58,30 +55,16 @@ class _ScoreCardState extends State<ScoreCard> {
                           ),
                         );
                       }).toList(),
-
-                      /* return ListView.builder(
-                        itemCount: data.size,
-                        itemBuilder: (context, index) {
-                          var players = data.docs[index]['players'];
-                          var name = players. name;
-                          var score = players['score'][0];
-                          return Text('$name - $score');
-                        });
-*/
-                      /* return ListView.builder(
-                      itemCount: data.size,
-                      itemBuilder: (context, index) {
-                        return Text('${data.docs[index]['name']}');
-                      },
-                    ); */
                     );
                   }),
             ),
-            const Text(
-              'Enter score',
-              style: TextStyle(fontSize: 20),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => newScoreView()));
+              },
+              child: const Text('Add score'),
             ),
-            MyCustomForm()
           ],
         ),
       ),
@@ -89,7 +72,23 @@ class _ScoreCardState extends State<ScoreCard> {
   }
 }
 
+class newScoreView extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        body: Column(
+          children: const [MyCustomForm()],
+        ),
+        appBar: AppBar(
+          title: const Text('Add score'),
+          centerTitle: true,
+        ));
+  }
+}
+
 class MyCustomForm extends StatefulWidget {
+  const MyCustomForm({Key? key}) : super(key: key);
+
   @override
   MyCustomFormState createState() {
     return MyCustomFormState();
@@ -114,7 +113,7 @@ class MyCustomFormState extends State<MyCustomForm> {
           TextFormField(
               decoration: const InputDecoration(
                 icon: Icon(Icons.person),
-                hintText: 'Name',
+                hintText: 'Enter name',
                 labelText: 'Name',
               ),
               onChanged: (value) {
@@ -130,7 +129,7 @@ class MyCustomFormState extends State<MyCustomForm> {
             keyboardType: TextInputType.number,
             decoration: const InputDecoration(
               icon: Icon(Icons.numbers),
-              hintText: 'score',
+              hintText: 'Enter score',
               labelText: 'score',
             ),
             onChanged: (value) {
@@ -143,7 +142,7 @@ class MyCustomFormState extends State<MyCustomForm> {
               return null;
             },
           ),
-          SizedBox(height: 15),
+          const SizedBox(height: 15),
           Center(
             child: ElevatedButton(
               onPressed: () {
@@ -159,6 +158,7 @@ class MyCustomFormState extends State<MyCustomForm> {
                       .then((value) => print('User Added'))
                       .catchError((error) => print('failed $error'));
                 }
+                Navigator.pop(context);
               },
               child: const Text('Submit'),
             ),

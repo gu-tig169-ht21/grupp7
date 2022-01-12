@@ -14,6 +14,7 @@ class AddPlayerScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(title),
+        centerTitle: true,
       ),
       body: Container(
         padding: const EdgeInsets.all(25.0),
