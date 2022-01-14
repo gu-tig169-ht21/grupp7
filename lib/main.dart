@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'discMania',
         theme: ThemeData(
-          primarySwatch: Colors.red,
+          primarySwatch: Colors.blueGrey,
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
         home: const AuthenticationWrapper(),

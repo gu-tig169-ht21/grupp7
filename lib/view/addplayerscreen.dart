@@ -31,7 +31,7 @@ class AddPlayerScreen extends StatelessWidget {
               height: 30.0,
             ),
             ElevatedButton(
-              child: const Text('add player'),
+              child: const Text('Add Player'),
               onPressed: () async {
                 if (_playerNameController.text.isEmpty) {
                   return;
