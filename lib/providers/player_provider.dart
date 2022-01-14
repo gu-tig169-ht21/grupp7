@@ -8,7 +8,6 @@ class AddPlayerNotifier extends ChangeNotifier {
   addPlayer(String playerName) async {
     Player player = Player(playerName: playerName);
     playerList.add(player);
-
     notifyListeners();
   }
 

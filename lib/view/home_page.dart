@@ -9,67 +9,88 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final createscorecardbutton = Material(
+      elevation: 5,
+      borderRadius: BorderRadius.circular(30),
+      color: Colors.blueGrey,
+      child: MaterialButton(
+        padding: const EdgeInsets.fromLTRB(120, 20, 120, 20),
+        onPressed: () {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => const ScoreCard()));
+        },
+        child: const Text(
+          'Scorecard',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontSize: 20,
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+    );
+
+    final resultbutton = Material(
+      elevation: 5,
+      borderRadius: BorderRadius.circular(30),
+      color: Colors.blueGrey,
+      child: MaterialButton(
+        padding: const EdgeInsets.fromLTRB(130, 20, 130, 20),
+        onPressed: () {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => const ResultView()));
+        },
+        child: const Text(
+          'Results',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontSize: 20,
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+    );
+
+    final signoutbutton = Material(
+      elevation: 5,
+      borderRadius: BorderRadius.circular(30),
+      color: Colors.blueGrey,
+      child: MaterialButton(
+        padding: const EdgeInsets.fromLTRB(125, 20, 125, 20),
+        onPressed: () {
+          context.read<AuthenticationService>().signOut();
+        },
+        child: const Text(
+          'Sign Out',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontSize: 20,
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+    );
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('DiscMANIA'),
-        backgroundColor: Colors.redAccent,
+        backgroundColor: Colors.blueGrey,
         centerTitle: true,
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SizedBox(
-              width: 200,
-              height: 40,
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const ScoreCard()));
-                },
-                style: ButtonStyle(
-                    backgroundColor:
-                        MaterialStateProperty.all<Color>(Colors.redAccent)),
-                child: const Text('New game'),
-              ),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            SizedBox(
-              width: 200,
-              height: 40,
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const ResultView()));
-                },
-                style: ButtonStyle(
-                    backgroundColor:
-                        MaterialStateProperty.all<Color>(Colors.redAccent)),
-                child: const Text('Results'),
-              ),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            SizedBox(
-              width: 200,
-              height: 40,
-              child: ElevatedButton(
-                onPressed: () {
-                  context.read<AuthenticationService>().signOut();
-                },
-                style: ButtonStyle(
-                    backgroundColor:
-                        MaterialStateProperty.all<Color>(Colors.redAccent)),
-                child: const Text("Sign out"),
-              ),
-            ),
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            createscorecardbutton,
+            const SizedBox(height: 30),
+            resultbutton,
+            const SizedBox(height: 30),
+            signoutbutton,
+            const SizedBox(height: 30),
           ],
         ),
       ),

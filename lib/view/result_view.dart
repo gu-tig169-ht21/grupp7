@@ -63,7 +63,7 @@ class _ResultViewState extends State<ResultView> {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => newScoreView()));
               },
-              child: const Text('Add score'),
+              child: const Text('Add Score'),
             ),
           ],
         ),
@@ -77,25 +77,25 @@ class newScoreView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Column(
-          children: const [MyCustomForm()],
+          children: const [AddOldScore()],
         ),
         appBar: AppBar(
-          title: const Text('Add score'),
+          title: const Text('Add Score'),
           centerTitle: true,
         ));
   }
 }
 
-class MyCustomForm extends StatefulWidget {
-  const MyCustomForm({Key? key}) : super(key: key);
+class AddOldScore extends StatefulWidget {
+  const AddOldScore({Key? key}) : super(key: key);
 
   @override
-  MyCustomFormState createState() {
-    return MyCustomFormState();
+  AddOldScoreState createState() {
+    return AddOldScoreState();
   }
 }
 
-class MyCustomFormState extends State<MyCustomForm> {
+class AddOldScoreState extends State<AddOldScore> {
   final _formKey = GlobalKey<FormState>();
 
   var name = '';
@@ -129,15 +129,15 @@ class MyCustomFormState extends State<MyCustomForm> {
             keyboardType: TextInputType.number,
             decoration: const InputDecoration(
               icon: Icon(Icons.numbers),
-              hintText: 'Enter score',
-              labelText: 'score',
+              hintText: 'Enter Score',
+              labelText: 'Score',
             ),
             onChanged: (value) {
               if (value.isNotEmpty) score = int.parse(value);
             },
             validator: (value) {
               if (value == null || value.isEmpty) {
-                return 'enter score please';
+                return 'Enter score please';
               }
               return null;
             },
@@ -149,7 +149,7 @@ class MyCustomFormState extends State<MyCustomForm> {
                 if (_formKey.currentState!.validate()) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(
-                      content: Text('uploading score to firebase'),
+                      content: Text('Uploading score to Firebase'),
                     ),
                   );
 

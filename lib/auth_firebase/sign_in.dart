@@ -11,7 +11,6 @@ class SignIn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-//email field
     final emailField = TextFormField(
       controller: emailController,
       keyboardType: TextInputType.emailAddress,
@@ -60,7 +59,7 @@ class SignIn extends StatelessWidget {
     final loginButton = Material(
       elevation: 5,
       borderRadius: BorderRadius.circular(30),
-      color: Colors.redAccent,
+      color: Colors.blueGrey,
       child: MaterialButton(
         padding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
         minWidth: MediaQuery.of(context).size.width,
@@ -85,7 +84,7 @@ class SignIn extends StatelessWidget {
     final signupButton = Material(
       elevation: 5,
       borderRadius: BorderRadius.circular(30),
-      color: Colors.redAccent,
+      color: Colors.blueGrey,
       child: MaterialButton(
         padding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
         minWidth: MediaQuery.of(context).size.width,
@@ -108,6 +107,10 @@ class SignIn extends StatelessWidget {
     );
 
     return Scaffold(
+      appBar: AppBar(
+          title: const Text('DiscMANIA'),
+          backgroundColor: Colors.blueGrey,
+          centerTitle: true),
       backgroundColor: Colors.white,
       body: Center(
         child: SingleChildScrollView(
@@ -126,9 +129,6 @@ class SignIn extends StatelessWidget {
                 const SizedBox(height: 45),
                 signupButton,
                 const SizedBox(height: 45),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                ),
               ],
             ),
           ),
